@@ -104,7 +104,14 @@ namespace AzzyAIConfig
                         t.TACT_BASIC = TACT_BASIC.TACT_ATTACK_TOP;
                     }
 
-                    t.TACT_SKILL = values[2];
+                    if (values[2] == "SKILL_ALWAYS")
+                    {
+                        t.TACT_SKILL = TACT_SKILL.SKILL_ALWAYS;
+                    }
+                    else if (values[2] == "SKILL_NEVER")
+                    {
+                        t.TACT_SKILL = TACT_SKILL.SKILL_NEVER;
+                    }
 
                     if (values[3] == "KITE_ALWAYS")
                     {

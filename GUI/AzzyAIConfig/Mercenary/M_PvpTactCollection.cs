@@ -1,9 +1,9 @@
-﻿// TactCollection.cs
+﻿// M_PvpTactCollection.cs
 //
 // Programmed by Machiavellian of iRO Chaos
 //
 // Description:
-// This file contains code for the TactCollection class, which implements
+// This file contains code for the M_PvpTactCollection class, which implements
 // the generic interface ICollection<T>.
 
 using System;
@@ -16,30 +16,30 @@ using System.Collections.Generic;
 
 namespace AzzyAIConfig
 {
-    class TactCollection : System.Collections.Generic.ICollection<Tact>
+    class M_PvpTactCollection : System.Collections.Generic.ICollection<M_PvpTact>
     {
-        Tact[] _items = new Tact[0];
+        M_PvpTact[] _items = new M_PvpTact[0];
 
-        public TactCollection()
+        public M_PvpTactCollection()
         {
         }
 
-        public TactCollection(Tact[] items)
+        public M_PvpTactCollection(M_PvpTact[] items)
         {
-            // Set the items array
+            // Set the array of tactics
             _items = items;
         }
 
-        public TactCollection(Tact[] items, bool readOnly)
+        public M_PvpTactCollection(M_PvpTact[] items, bool readOnly)
         {
-            // Set the items array
+            // Set the array of tactics
             _items = items;
 
             // Set the collection as read only
             _readOnly = readOnly;
         }
 
-        public void Add(Tact item)
+        public void Add(M_PvpTact item)
         {
             // Check if the collection is read only
             if (_readOnly)
@@ -51,18 +51,18 @@ namespace AzzyAIConfig
             else
             {
                 // Create a new tactics array
-                Tact[] old = new Tact[_items.Length];
+                M_PvpTact[] old = new M_PvpTact[_items.Length];
 
                 // Copy the old tactics array to the new one
                 _items.CopyTo(old, 0);
 
-                // Create a new tactics array with one more slot than the old one
-                _items = new Tact[old.Length + 1];
+                // Create a new tactics array with one extra slot
+                _items = new M_PvpTact[old.Length + 1];
 
                 // Copy the old tactics array to the new one
                 old.CopyTo(_items, 0);
 
-                // Set the last slot of the new array to the new tactic
+                // Set the last object in the array to the new tactic
                 _items[old.Length] = item;
 
                 // Sort the array
@@ -81,26 +81,26 @@ namespace AzzyAIConfig
             // If the collection is not read only
             else
             {
-                // Clear the collection array
-                _items = new Tact[0];
+                // Clear the tactics array
+                _items = new M_PvpTact[0];
             }
         }
 
-        public bool Contains(Tact item)
+        public bool Contains(M_PvpTact item)
         {
-            // Check if the collection array has more than one item
+            // Check if the tactics array has more than one object
             if (_items.Length > 0)
             {
                 // Create a new tactics array
-                Tact[] search = new Tact[_items.Length];
+                M_PvpTact[] search = new M_PvpTact[_items.Length];
 
                 // Copy the old tactics array to the new one
                 _items.CopyTo(search, 0);
 
-                // Run through the tactics in the new array
-                foreach (Tact t in search)
+                // Run through all the tactics in the new array
+                foreach (M_PvpTact t in search)
                 {
-                    // Check if the current tactic equals item
+                    // Check if the current tactic is equal to item
                     if (t == item)
                     {
                         // Return true
@@ -113,9 +113,9 @@ namespace AzzyAIConfig
             return false;
         }
 
-        public void CopyTo(Tact[] array, int arrayIndex)
+        public void CopyTo(M_PvpTact[] array, int arrayIndex)
         {
-            // Cope the collection array to array at arrayIndex
+            // Copy the tactics array to array starting at arrayIndex
             _items.CopyTo(array, arrayIndex);
         }
 
@@ -130,7 +130,7 @@ namespace AzzyAIConfig
             get { return _readOnly; }
         }
 
-        public bool Remove(Tact item)
+        public bool Remove(M_PvpTact item)
         {
             // Check if the collection is read only
             if (_readOnly)
@@ -142,27 +142,30 @@ namespace AzzyAIConfig
             else if (Contains(item))
             {
                 // Create a new tactics array
-                Tact[] old = new Tact[_items.Length];
+                M_PvpTact[] old = new M_PvpTact[_items.Length];
 
                 // Copy the old tactics array to the new one
                 _items.CopyTo(old, 0);
 
-                // Replace the item with the last tactic in the array
+                // Search for the item and replace it with the last tactic in the array
                 int i = 0;
-                while (old[i] != item) i++;
-                if (old[i] == item)
+                while (old[i] != item)
                 {
-                    old[i] = old[old.Length - 1];
+                    i++;
+                    if (old[i] == item)
+                    {
+                        old[i] = old[old.Length - 1];
+                    }
                 }
 
                 // Create a new tactics array with one less slot than the old one
-                _items = new Tact[old.Length - 1];
+                _items = new M_PvpTact[old.Length - 1];
 
                 // Run through all the slots in the new array
                 for (i = 0; i < _items.Length; i++)
                 {
-                    // Create a new tactic from the old one in the old array
-                    _items[i] = new Tact(old[i].ID, old[i].Name, old[i].TACT_BASIC, old[i].TACT_SKILL, old[i].TACT_KITE, old[i].TACT_CAST, old[i].TACT_PUSHBACK, old[i].TACT_DEBUFF, old[i].TACT_SKILLCLASS, old[i].TACT_RESCUE, old[i].TACT_SP,old[i].TACT_SNIPE, old[i].TACT_KS, old[i].TACT_WEIGHT, old[i].TACT_CHASE);
+                    // Set the current slot to the old tactic
+                    _items[i] = old[i];
                 }
 
                 // Sort the new array
@@ -176,10 +179,10 @@ namespace AzzyAIConfig
             return false;
         }
 
-        public IEnumerator<Tact> GetEnumerator()
+        public IEnumerator<M_PvpTact> GetEnumerator()
         {
             // Return the enumerator for this collection
-            return new TactEnumerator(_items);
+            return new M_PvpTactEnumerator(_items);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

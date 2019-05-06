@@ -16,13 +16,13 @@ using System.ComponentModel;
 
 namespace AzzyAIConfig
 {
-    enum UseSkillOnlyOptions : sbyte
+    public enum UseSkillOnlyOptions : sbyte
     {
         Attacking  = 0,
         Chasing = -1,
         SkillOnly = 1
     }
-    enum UseAutoMagOptions : sbyte
+    public enum UseAutoMagOptions : sbyte
     {
         Never = 0,
         Idle = 1,
@@ -31,21 +31,21 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
     }
-    enum UseAutoPushbackOptions : sbyte
+    public enum UseAutoPushbackOptions : sbyte
     {
         Off = 0,
         Self = 1,
         All = 2
     }
 
-	enum OldHomunTypeOptions : sbyte
+    public enum OldHomunTypeOptions : sbyte
 	{
 		Lif = 1,
 		Amistr = 2,
 		Filir = 3
 	}
 
-	enum UseSeraPainkillerOptions : sbyte
+    public enum UseSeraPainkillerOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -54,7 +54,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-    enum UseProvokeOwnerOptions : sbyte
+    public enum UseProvokeOwnerOptions : sbyte
     {
         Never = 0,
         Idle = 1,
@@ -63,7 +63,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
     }
-	enum UseBayeriAngriffModusOptions : sbyte
+    public enum UseBayeriAngriffModusOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -72,7 +72,7 @@ namespace AzzyAIConfig
 		Berserk = 2,
         ASAP = 3
 	}
-    enum UseOffensiveBuffOptions : sbyte
+    public enum UseOffensiveBuffOptions : sbyte
     {
         Never = 0,
         Idle = 1,
@@ -81,7 +81,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
     }
-    enum UseDefensiveBuffOptions : sbyte
+    public enum UseDefensiveBuffOptions : sbyte
     {
         Never = 0,
         Idle = 1,
@@ -90,7 +90,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
     }
-	enum UseBayeriGoldenPherzeOptions : sbyte
+    public enum UseBayeriGoldenPherzeOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -99,7 +99,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseDieterMagmaFlowOptions : sbyte
+    public enum UseDieterMagmaFlowOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -108,7 +108,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseDieterGraniticArmorOptions : sbyte
+    public enum UseDieterGraniticArmorOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -117,7 +117,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseDieterPyroclasticOptions : sbyte
+    public enum UseDieterPyroclasticOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -126,7 +126,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseEiraOveredBoostOptions : sbyte
+    public enum UseEiraOveredBoostOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -135,19 +135,19 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseAutoHealOptions : sbyte
+    public enum UseAutoHealOptions : sbyte
 	{
 		Never = 0,
 		Always = 1,
 		Idle = 2,
 		Idle_low= 3
 	}
-    enum HealOwnerBreezeOptions : sbyte
+    public enum HealOwnerBreezeOptions : sbyte
     {
         Disabled = 0,
         Enabled = 1
     }
-	enum LavaSlideModeOptions : sbyte
+    public enum LavaSlideModeOptions : sbyte
 	{
 		Attack = 0,
 		Idle = 1,
@@ -155,7 +155,7 @@ namespace AzzyAIConfig
 		Idle_Low = -2,
         Berserk = 2
 	}
-	enum PoisonMistModeOptions : sbyte
+    public enum PoisonMistModeOptions : sbyte
 	{
 		Attack = 0,
 		Idle = 1,
@@ -163,7 +163,7 @@ namespace AzzyAIConfig
 		Idle_Low = -2,
         Berserk = 2
 	}
-	enum UseBayeriSteinWandOptions : sbyte
+    public enum UseBayeriSteinWandOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -172,7 +172,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-    	enum UseBlessingSelfOptions : sbyte
+    public enum UseBlessingSelfOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -181,7 +181,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseBlessingOwnerOptions : sbyte
+    public enum UseBlessingOwnerOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -190,7 +190,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseKyrieSelfOptions : sbyte
+    public enum UseKyrieSelfOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -199,7 +199,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseKyrieOwnerOptions : sbyte
+    public enum UseKyrieOwnerOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -208,7 +208,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseIncAgiSelfOptions : sbyte
+    public enum UseIncAgiSelfOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -217,7 +217,7 @@ namespace AzzyAIConfig
         Berserk = 2,
         ASAP = 3
 	}
-	enum UseIncAgiOwnerOptions : sbyte
+    public enum UseIncAgiOwnerOptions : sbyte
 	{
 		Never = 0,
 		Idle = 1,
@@ -227,21 +227,20 @@ namespace AzzyAIConfig
         ASAP = 3
 	}
 
-
-	enum AutoMobModeOptions : sbyte
+    public enum AutoMobModeOptions : sbyte
 	{
 		Disabled = 0,
 		Aggressive = 1,
 		All = 2
 	}
-	enum AutoComboModeOptions : sbyte
+    public enum AutoComboModeOptions : sbyte
 	{
 		Never = 0,
 		Tactics = 1,
 		Always = 2
 	}
 
-	enum UseIdleWalkOptions : sbyte
+    public enum UseIdleWalkOptions : sbyte
 	{
 		None = 0,
 		Circle = 1,
@@ -252,14 +251,14 @@ namespace AzzyAIConfig
 		Route_Circle= 6
 	}
 
-    enum StickyStandbyOptions
+    public enum StickyStandbyOptions
     {
         Disabled=0,
         Enabled=1,
         Enabled_Relog=2
     }
 
-    class HomConf
+    public class HomConf
     {
         // The default file
         string _file = "H_Config.lua";
@@ -309,147 +308,12 @@ namespace AzzyAIConfig
 
         public void SetDefaults()
         {
-            // Basic Options
-            _AggroHP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AggroHP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AggroSP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AggroSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteMonsters = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteMonsters"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _PainkillerFriends = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["PainkillerFriends"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _PainkillerFriendsSave = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["PainkillerFriendsSave"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SuperPassive = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SuperPassive"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseAttackSkill = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseAttackSkill"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AssumeHomun = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AssumeHomun"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _DoNotChase = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DoNotChase"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseDanceAttack = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDanceAttack"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseAvoid = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseAvoid"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _TankMonsterLimit = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["TankMonsterLimit"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _RescueOwnerLowHP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["RescueOwnerLowHP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _StationaryAggroDist = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["StationaryAggroDist"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _MobileAggroDist = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["MobileAggroDist"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _OldHomunType = (OldHomunTypeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["OldHomunType"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _OpportunisticTargeting = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["OpportunisticTargeting"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AttackLastFullSP = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AttackLastFullSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _DanceMinSP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DanceMinSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AttackTimeLimit = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AttackTimeLimit"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _LagReduction = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["LagReduction"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _DoNotAttackMoving = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DoNotAttackMoving"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _LiveMobID = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["LiveMobID"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            
-
-            // AutoSkill Options
-            _AttackSkillReserveSP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AttackSkillReserveSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSkillOnly = (UseSkillOnlyOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSkillOnly"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _AutoSkillDelay = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AutoSkillDelay"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AutoMobCount = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AutoMobCount"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AoEReserveSP = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AoEReserveSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AoEFixedLevel = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AoEFixedLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AutoMobMode = (AutoMobModeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AutoMobMode"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _AutoComboMode = (AutoComboModeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AutoComboMode"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _AutoComboSpheres = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AutoComboSpheres"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseHomunSSkillChase = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseHomunSSkillChase"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseHomunSSkillAttack = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseHomunSSkillAttack"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AoEMaximizeTargets = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AoEMaximizeTargets"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseEiraXenoSlasher = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseEiraXenoSlasher"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EiraXenoSlasherLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EiraXenoSlasherLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseEiraSilentBreeze = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseEiraSilentBreeze"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EiraSilentBreezeLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EiraSilentBreezeLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseEiraEraseCutter = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseEiraEraseCutter"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EiraEraseCutterLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EiraEraseCutterLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseBayeriStahlHorn = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBayeriStahlHorn"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _BayeriStahlHornLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["BayeriStahlHornLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseBayeriHailegeStar = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBayeriHailegeStar"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _BayeriHailegeStarLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["BayeriHailegeStarLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSeraParalyze = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSeraParalyze"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SeraParalyzeLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SeraParalyzeLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSeraPoisonMist = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSeraPoisonMist"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SeraPoisonMistLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SeraPoisonMistLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseEleanorSonicClaw = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseEleanorSonicClaw"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EleanorSonicClawLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EleanorSonicClawLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EleanorSilverveinLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EleanorSilverveinLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EleanorMidnightLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EleanorMidnightLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _EleanorDoNotSwitchMode = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["EleanorDoNotSwitchMode"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseDieterLavaSlide = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDieterLavaSlide"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseDieterVolcanicAsh = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDieterVolcanicAsh"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _DieterLavaSlideLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DieterLavaSlideLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSeraCallLegion = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSeraCallLegion"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SeraCallLegionLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SeraCallLegionLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-
-            // Walk/Follow Options
-            _FollowStayBack = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["FollowStayBack"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _RestXOff = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["RestXOff"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _RestYOff = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["RestYOff"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _DoNotUseRest = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DoNotUseRest"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SpawnDelay = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SpawnDelay"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _MoveSticky = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["MoveSticky"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _MoveStickyFight = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["MoveStickyFight"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseIdleWalk = (UseIdleWalkOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseIdleWalk"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _IdleWalkSP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["IdleWalkSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseCastleRoute = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseCastleRoute"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _RelativeRoute = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["RelativeRoute"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _IdleWalkDistance = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["IdleWalkDistance"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _ChaseSPPause = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["ChaseSPPause"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _ChaseSPPauseSP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["ChaseSPPauseSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _ChaseSPPauseTime = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["ChaseSPPauseTime"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _StationaryMoveBounds = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["StationaryMoveBounds"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _MobileMoveBounds = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["MobileMoveBounds"].Attributes[typeof(DefaultValueAttribute)]).Value);
-
-            // Autobuff Options
-            _UseOffensiveBuff = (UseOffensiveBuffOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseOffensiveBuff"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseDefensiveBuff = (UseDefensiveBuffOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDefensiveBuff"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _LifEscapeLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["LifEscapeLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _FilirFlitLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["FilirFlitLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _AmiBulwarkLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["AmiBulwarkLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _HealOwnerHP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["HealOwnerHP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _FilirAccelLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["FilirAccelLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSeraPainkiller = (UseSeraPainkillerOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSeraPainkiller"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _DefensiveBuffOwnerMobbed = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DefensiveBuffOwnerMobbed"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseBayeriAngriffModus = (UseBayeriAngriffModusOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBayeriAngriffModus"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseBayeriGoldenPherze = (UseBayeriGoldenPherzeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBayeriGoldenPherze"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseDieterMagmaFlow = (UseDieterMagmaFlowOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDieterMagmaFlow"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseDieterGraniticArmor = (UseDieterGraniticArmorOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDieterGraniticArmor"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseDieterPyroclastic = (UseDieterPyroclasticOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseDieterPyroclastic"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseEiraOveredBoost = (UseEiraOveredBoostOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseEiraOveredBoost"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _HealSelfHP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["HealSelfHP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseAutoHeal = (UseAutoHealOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseAutoHeal"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _HealOwnerBreeze = (HealOwnerBreezeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseAutoHeal"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _LavaSlideMode = (LavaSlideModeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["LavaSlideMode"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _PoisonMistMode = (PoisonMistModeOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["PoisonMistMode"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _UseBayeriSteinWand = (UseBayeriSteinWandOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBayeriSteinWand"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            _BayeriSteinWandLevel = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["BayeriSteinWandLevel"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSteinWandSelfMob = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSteinWandSelfMob"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSteinWandOwnerMob = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSteinWandOwnerMob"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSteinWandTele = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSteinWandTele"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _SteinWandTelePause = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["SteinWandTelePause"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseCastleDefend = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseCastleDefend"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _CastleDefendThreshold = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["CastleDefendThreshold"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseSmartBulwark = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseSmartBulwark"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            // Kiting Options
-            _KiteParanoid = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteParanoid"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteStep = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteStep"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteParanoidStep = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteParanoidStep"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteThreshold = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteThreshold"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteParanoidThreshold = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteParanoidThreshold"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _KiteBounds = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["KiteBounds"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _ForceKite = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["ForceKite"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _FleeHP = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["FleeHP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            
-            // Friending Options
-            _StandbyFriending = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["StandbyFriending"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _MirAIFriending = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["MirAIFriending"].Attributes[typeof(DefaultValueAttribute)]).Value);
-
-            // Standby Options
-            _DefendStandby = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["DefendStandby"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _StickyStandby = (StickyStandbyOptions)((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["StickyStandby"].Attributes[typeof(DefaultValueAttribute)]).Value;
-            // Berserk Options
-            _UseBerserkMobbed = Convert.ToInt32(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBerserkMobbed"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseBerserkSkill = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBerserkSkill"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _UseBerserkAttack = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["UseBerserkAttack"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _Berserk_SkillAlways = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["Berserk_SkillAlways"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _Berserk_Dance = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["Berserk_Dance"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _Berserk_IgnoreMinSP = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["Berserk_IgnoreMinSP"].Attributes[typeof(DefaultValueAttribute)]).Value);
-            _Berserk_ComboAlways = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["Berserk_ComboAlways"].Attributes[typeof(DefaultValueAttribute)]).Value);
-
-            // PVP Options
-            _PVPmode = Convert.ToBoolean(((DefaultValueAttribute)TypeDescriptor.GetProperties(this)["PVPmode"].Attributes[typeof(DefaultValueAttribute)]).Value);
+            // Reset all properties to their default values
+            foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this))
+            {
+                object value = ((DefaultValueAttribute)propertyDescriptor.Attributes[typeof(DefaultValueAttribute)]).Value;
+                propertyDescriptor.SetValue(this, value);
+            }
         }
 
         public void Save()

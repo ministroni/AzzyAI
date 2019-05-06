@@ -1,0 +1,507 @@
+﻿<Window x:Class="AzzyAIConfig.MainWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AzzyAIConfig"
+             mc:Ignorable="d" 
+             Width="640" Height="700"
+             Title="AzzyAI Configuration Utility"
+             Icon="qNANE39 (1).ico"
+             d:DesignHeight="640" d:DesignWidth="500" d:DataContext="{d:DesignInstance local:MainViewModel }"
+             Closing="MainWindow_OnClosing">
+
+    <Window.Resources>
+
+        <Style x:Key="EnumComboBoxItemStyle" TargetType="ComboBoxItem">
+          <Setter Property="ToolTip">
+            <Setter.Value>
+              <TextBlock Text="{Binding Description}" d:DataContext="{d:DesignInstance local:EnumDescription}" />
+            </Setter.Value>
+          </Setter>
+        </Style>
+
+        <!--Settings UI-->
+        <Style x:Key="GroupHeaderStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <Grid Background="LightGray">
+                            <TextBlock Margin="26,3,0,0" FontWeight="Bold" Text="{Binding Name}" Name="grouping" Foreground="Black" VerticalAlignment="Top"/>
+                            <Expander ExpandDirection="Down" IsExpanded="True">
+                                <Border  BorderBrush="Gray" BorderThickness="1">
+                                    <ItemsPresenter/>
+                                </Border>
+                            </Expander>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="BoolValueTemplate">
+            <Grid d:DataContext="{d:DesignInstance local:ConfigOption}" >
+                <CheckBox IsChecked="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="6,3"
+                          Checked="ToggleButton_OnCheckChanged" Unchecked="ToggleButton_OnCheckChanged"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="IntValueTemplate">
+            <Grid d:DataContext="{d:DesignInstance local:ConfigOption}" >
+              <TextBox Name="NumericBox" Text="{Binding Value, Mode=TwoWay, Converter={local:IntToStringConverter}, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left"
+                       TextChanged="NumericBox_OnTextChanged" HorizontalAlignment="Stretch" Margin="1" PreviewKeyDown="NumericBox_OnPreviewKeyDown" PreviewTextInput="NumericBox_OnPreviewTextInput" Padding="5,0"/>
+              <Grid HorizontalAlignment="Right" Margin="1" SnapsToDevicePixels="False">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <RepeatButton Grid.Row="0" Click="NumericBoxUpButton_OnClick" Background="Transparent" BorderBrush="Transparent" IsTabStop="False">
+                    <Path Stroke="Gray" StrokeThickness="2" Data="M2,4 L4,2 6,4 Z" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+                </RepeatButton>
+                <RepeatButton Grid.Row="1" Click="NumericBoxDownButton_OnClick" Background="Transparent" BorderBrush="Transparent" IsTabStop="False">
+                    <Path Stroke="Gray" StrokeThickness="2" Data="M2,2 L4,4 6,2 Z" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                </RepeatButton>
+              </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="EnumValueTemplate">
+            <Grid d:DataContext="{d:DesignInstance local:ConfigOption}" >
+                <ComboBox SelectedValue="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding EnumValues}" SelectionChanged="Selector_OnSelectionChanged"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="1"/>
+            </Grid>
+        </DataTemplate>
+
+        <local:ConfigOptionValueTemplateSelector x:Key="configOptionValueTemplateSelector"
+            BoolValueTemplate="{StaticResource BoolValueTemplate}"
+            IntValueTemplate="{StaticResource IntValueTemplate}"
+            EnumValueTemplate="{StaticResource EnumValueTemplate}"/>
+
+
+        <ControlTemplate x:Key="ConfigGridControlTemplate" TargetType="DataGrid">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="75"/>
+                </Grid.RowDefinitions>
+                <DataGrid Name="dataGrid" Grid.Row="0" ItemsSource="{TemplateBinding ItemsSource}" RowHeight="25" AutoGenerateColumns="False"
+                  SelectionMode="Single" SelectionUnit="FullRow" AlternatingRowBackground="AliceBlue" MouseDoubleClick="DataGrid_OnMouseDoubleClick"
+                  BorderBrush="DarkSlateGray" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" HorizontalScrollBarVisibility="Disabled"
+                  RowHeaderWidth="0" SelectedIndex="0" SelectionChanged="ConfigGrid_OnSelectionChanged">
+                    <DataGrid.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightSteelBlue"/>
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Option" Binding="{Binding Name}" Width="*" IsReadOnly="True" MaxWidth="400"/>
+                        <DataGridTemplateColumn Header="Value" CellTemplateSelector="{StaticResource configOptionValueTemplateSelector}" Width="200"/>
+                    </DataGrid.Columns>
+                    <DataGrid.GroupStyle>
+                        <GroupStyle ContainerStyle="{StaticResource ResourceKey=GroupHeaderStyle}">
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <DataGridRowsPresenter/>
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+                </DataGrid>
+                <RichTextBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="DarkSlateGray" Margin="0,0,-1,0"
+                     DataContext="{Binding Path=SelectedItem, ElementName=dataGrid}" d:DataContext="{d:DesignInstance local:ConfigOption}"
+                     IsReadOnly="True" IsReadOnlyCaretVisible="False" VerticalScrollBarVisibility="Auto">
+                    <FlowDocument>
+                        <Paragraph Margin="3">
+                            <Run FontWeight="Bold" Text="{Binding Name}"/>
+                        </Paragraph>
+                        <Paragraph Margin="3,0,3,3">
+                            <Run Text="{Binding Description}"/>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="ConfigGridStyle" TargetType="DataGrid">
+            <Setter Property="Template" Value="{StaticResource ConfigGridControlTemplate}"/>
+        </Style>
+
+        <!--Tactics UI-->
+        <ControlTemplate x:Key="TacticsListViewControlTemplate" TargetType="ListView">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="CheckBox">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                    </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Margin" Value="3"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="listBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" ItemsSource="{TemplateBinding ItemsSource}"/>
+                    <Button Grid.Row="1" Grid.Column="0" Content="Add" HorizontalAlignment="Stretch" Margin="3"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="Remove" HorizontalAlignment="Stretch" Margin="3"/>
+                </Grid>
+                <StackPanel Grid.Column="1" Orientation="Vertical" DataContext="{Binding SelectedItem, ElementName=listBox}" d:DataContext="{d:DesignInstance local:Tact}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Monster Name" Margin="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding Name}" />
+                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Monster ID" Margin="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="3" Margin="3" Text="{Binding ID}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{TemplateBinding Tag}" Foreground="Red" TextWrapping="Wrap"
+                                   Visibility="{Binding Text, RelativeSource={RelativeSource Self}, Converter={local:NullOrEmptyToCollapsedConverter}}"/>
+                    </Grid>
+                    <GroupBox Header="Overall Tactics">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Basic Behavior"/>
+                            <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" SelectedValue="{Binding TACT_BASIC}"
+                                      ItemsSource="{Binding TACT_BASIC, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Use Attack Skills"/>
+                            <ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" SelectedValue="{Binding TACT_SKILL}"
+                                      ItemsSource="{Binding TACT_SKILL, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}" />
+                            <TextBox Grid.Column="3" Grid.Row="1"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="Debuff"/>
+                            <ComboBox Grid.Column="1" Grid.Row="2"  SelectedValue="{Binding TACT_DEBUFF}"
+                                      ItemsSource="{Binding TACT_DEBUFF, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <TextBlock Grid.Column="2" Grid.Row="2" Text="While"/>
+                            <ComboBox Grid.Column="3" Grid.Row="2"  SelectedValue="{Binding TACT_WHILE}"
+                                      ItemsSource="{Binding TACT_WHILE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="3" Text="Kiting"/>
+                            <ComboBox Grid.Column="1" Grid.Row="3"   SelectedValue="{Binding TACT_KITE}"
+                                      ItemsSource="{Binding TACT_KITE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <TextBlock Grid.Column="2" Grid.Row="3" Text="React"/>
+                            <ComboBox Grid.Column="3" Grid.Row="3"   SelectedValue="{Binding TACT_CAST}"
+                                      ItemsSource="{Binding TACT_CAST, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="4" Text="Skill Class"/>
+                            <ComboBox Grid.Column="1" Grid.Row="4" SelectedValue="{Binding TACT_SKILLCLASS}"
+                                      ItemsSource="{Binding TACT_SKILLCLASS, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <CheckBox Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2" Content="Snipe OK"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="Rescue"/>
+                            <ComboBox Grid.Column="1" Grid.Row="5" SelectedValue="{Binding TACT_RESCUE}"
+                                      ItemsSource="{Binding TACT_RESCUE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <TextBlock Grid.Column="2" Grid.Row="5" Text="SP"/>
+                            <TextBox Grid.Column="3" Grid.Row="5" Text="{Binding TACT_SP}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="Kill-steal"/>
+                            <ComboBox Grid.Column="1" Grid.Row="6" SelectedValue="{Binding TACT_KS}"
+                                      ItemsSource="{Binding TACT_KS, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <TextBlock Grid.Column="2" Grid.Row="6" Text="Weight" />
+                            <TextBox Grid.Column="3" Grid.Row="6" Text="{Binding TACT_WEIGHT}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="Chase"/>
+                            <ComboBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" SelectedValue="{Binding TACT_CHASE}"
+                                      ItemsSource="{Binding TACT_CHASE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="TacticsListStyle" TargetType="ListView">
+            <Setter Property="Template" Value="{StaticResource TacticsListViewControlTemplate}"/>
+        </Style>
+
+        <!--PVP Tactics UI-->
+        <ControlTemplate x:Key="PvpTacticsListControlTemplate" TargetType="ListView">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                    </Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="CheckBox">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                    </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Margin" Value="3"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="listBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" ItemsSource="{TemplateBinding ItemsSource}"/>
+                    <Button Grid.Row="1" Grid.Column="0" Content="Add" HorizontalAlignment="Stretch" Margin="3"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="Remove" HorizontalAlignment="Stretch" Margin="3"/>
+                </Grid>
+                <StackPanel Grid.Column="1" Orientation="Vertical" DataContext="{Binding SelectedItem, ElementName=listBox}" d:DataContext="{d:DesignInstance local:PvpTact}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Player ID or Friend Class" Margin="3" VerticalAlignment="Center"/>
+                        <TextBox Grid.Column="1" Margin="3" Text="{Binding Name}" />
+                    </Grid>
+                    <GroupBox Header="Overall Tactics">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Basic Behavior"/>
+                            <ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" SelectedValue="{Binding TACT_BASIC}"
+                                      ItemsSource="{Binding TACT_BASIC, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="Use Attack Skills"/>
+                            <ComboBox Grid.Column="1" Grid.Row="1" SelectedValue="{Binding TACT_SKILL}"
+                                      ItemsSource="{Binding TACT_SKILL, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <TextBox Grid.Column="2" Grid.Row="1" Text="{Binding TACT_}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="Use Debuffs"/>
+                            <ComboBox Grid.Column="1" Grid.Row="2" SelectedValue="{Binding TACT_DEBUFF}"
+                                      ItemsSource="{Binding TACT_DEBUFF, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                            <ComboBox Grid.Column="2" Grid.Row="2"  SelectedValue="{Binding TACT_WHILE}"
+                                      ItemsSource="{Binding TACT_WHILE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="3" Text="Kiting"/>
+                            <ComboBox Grid.Column="1" Grid.Row="3" SelectedValue="{Binding TACT_KITE}"
+                                      ItemsSource="{Binding TACT_KITE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="4" Text="Skill Class"/>
+                            <ComboBox Grid.Column="1" Grid.Row="4" SelectedValue="{Binding TACT_SKILLCLASS}"
+                                      ItemsSource="{Binding TACT_SKILLCLASS, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="5" Text="Rescue"/>
+                            <ComboBox Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" SelectedValue="{Binding TACT_RESCUE}"
+                                      ItemsSource="{Binding TACT_RESCUE, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="6" Text="Use Pushback"/>
+                            <ComboBox Grid.Column="1" Grid.Row="6" SelectedValue="{Binding TACT_PUSHBACK}"
+                                      ItemsSource="{Binding TACT_PUSHBACK, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+
+                            <TextBlock Grid.Column="0" Grid.Row="7" Text="React"/>
+                            <ComboBox Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" SelectedValue="{Binding Tact_REACT}"
+                                      ItemsSource="{Binding Tact_REACT, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                                      SelectedValuePath="Value" DisplayMemberPath="Name" ItemContainerStyle="{StaticResource EnumComboBoxItemStyle}"/>
+                        </Grid>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="PvpTacticsListStyle" TargetType="ListView">
+            <Setter Property="Template" Value="{StaticResource PvpTacticsListControlTemplate}"/>
+        </Style>
+
+    </Window.Resources>
+    <DockPanel>
+        <!--File Menu-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="Import">
+                    <MenuItem Header="Homunculus Settings..." Click="ImportHomSettingsMenuItem_OnClick"/>
+                    <MenuItem Header="Mercenary Settings..." Click="ImportMercSettingsMenuItem_OnClick"/>
+                    <MenuItem Header="Homunculus Tactics..." Click="ImportHomTacticsMenuItem_OnClick"/>
+                    <MenuItem Header="Mercenary Tactics..." Click="ImportMercTacticsMenuItem_OnClick"/>
+                </MenuItem>
+                <MenuItem Header="Export">
+                    <MenuItem Header="Homunculus Settings..." Click="ExportHomSettingsMenuItem_OnClick"/>
+                    <MenuItem Header="Mercenary Settings..." Click="ExportMercSettingsMenuItem_OnClick"/>
+                    <MenuItem Header="Homunculus Tactics..." Click="ExportHomTacticsMenuItem_OnClick"/>
+                    <MenuItem Header="Mercenary Tactics..." Click="ExportMercTacticsMenuItem_OnClick"/>
+                </MenuItem>
+                <MenuItem Header="Reset UI" Click="MenuItem_OnClick"/>
+                <MenuItem Header="Exit" Click="QuitButton_OnClick"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Apply Settings" Click="ApplyButton_OnClick" IsEnabled="{Binding SaveEnabled}"/>
+                <MenuItem Header="Revert" Click="RevertMenuItem_OnClick" IsEnabled="{Binding SaveEnabled}"/>
+                <MenuItem Header="Reset To Defaults" Click="ResetToDefaultsItem_OnClick"/>
+                </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="Documentation" Click="DocumentationMenuItem_OnClick"/>
+                <MenuItem Header="About" Click="AboutMenuItem_OnClick"/>
+            </MenuItem>
+        </Menu>
+        <Grid Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Homunculus/Mercenacy Checkboxes-->
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
+                <CheckBox Name="MercCheckBox" Content="Mercenary" IsChecked="True" Margin="3"/>
+                <CheckBox Name="HomCheckBox" Content="Homunculus" IsChecked="True" Margin="3" />
+            </StackPanel>
+            <!--Homunculus Type Boxes-->
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="6,3"
+                    Visibility="{Binding IsChecked, ElementName=HomCheckBox, Converter={local:BooleanToVisibilityConverter}}">
+                <TextBlock Text="Type:" VerticalAlignment="Center" Margin="3"/>
+                <ComboBox Width="82" Margin="3" ItemsSource="{Binding SelectedHomunculusDisplayType, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding SelectedHomunculusDisplayType}" SelectionChanged="HomType_OnSelectionChanged"
+                          SelectedValuePath="Value" DisplayMemberPath="Name"/>
+                <ComboBox Width="68" Margin="3" ItemsSource="{Binding SelectedSHomunculusDisplayType, Converter={local:EnumToCollectionConverter}, Mode=OneTime}"
+                          SelectedValue="{Binding SelectedSHomunculusDisplayType}" SelectionChanged="HomType_OnSelectionChanged"
+                          SelectedValuePath="Value" DisplayMemberPath="Name"/>
+            </StackPanel>
+            <!--Text Filter-->
+            <Grid Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" Margin="3,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Filter:" VerticalAlignment="Center" Margin="3"/>
+                <TextBox Grid.Column="1" Width="180" Text="{Binding TextFilter, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyUp="UIElement_OnKeyUp" />
+            </Grid>
+            <TabControl Name="TabControl" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                <!--Homunculus Settings-->
+                <TabItem Header="Homunculus" Visibility="{Binding IsChecked, ElementName=HomCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <DataGrid Style="{StaticResource ConfigGridStyle}" ItemsSource="{Binding ShownHomConfOptionsList}"/>
+                </TabItem>
+                <!--Mercenary Settings-->
+                <TabItem Header="Mercenary" Visibility="{Binding IsChecked, ElementName=MercCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <DataGrid Style="{StaticResource ConfigGridStyle}" ItemsSource="{Binding ShownMercConfOptionsList}"/>
+                </TabItem>
+                <!--Homunculus Tactics-->
+                <TabItem Header="Homunculus Tactics" Visibility="{Binding IsChecked, ElementName=HomCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <ListView ItemsSource="{Binding ShownHomTacticsList}" Style="{StaticResource TacticsListStyle}"/>
+                </TabItem>
+                <!--Mercenary Tactics-->
+                <TabItem Header="Mercenary Tactics" Visibility="{Binding IsChecked, ElementName=MercCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <ListView ItemsSource="{Binding ShownMercTacticsList}" Style="{StaticResource TacticsListStyle}" Tag="WARNING: In order for non-default tactics to work, you must create a MobID file. These must be re-generated after each maintenance. If you do not know what this means, you don't have it."/>
+                </TabItem>
+                <!--Homunculus PVP-->
+                <TabItem Header="PVP" Visibility="{Binding IsChecked, ElementName=HomCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <ListView ItemsSource="{Binding ShownHomPvpTacticsList}" Style="{StaticResource PvpTacticsListStyle}"/>
+                </TabItem>
+                <!--Mercenary PVP Tactics-->
+                <TabItem Header="Mercenary PVP Tactics" Visibility="{Binding IsChecked, ElementName=MercCheckBox, Converter={local:BooleanToVisibilityConverter}}"
+                         IsVisibleChanged="TabItem_OnIsVisibleChanged">
+                    <ListView ItemsSource="{Binding ShownMercPvpTacticsList}" Style="{StaticResource PvpTacticsListStyle}"/>
+                </TabItem>
+                <!--Extra Options-->
+                <TabItem Header="Extra Options">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Name="ExtraConfigCombo" Grid.Row="0" Grid.Column="0" Height="25" Width="200" HorizontalAlignment="Left" Margin="3" ItemsSource="{Binding ExtraConfigs}" SelectedIndex="0"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Here you can modify configurations that are not supported by the GUI."
+                                   TextWrapping="Wrap" Margin="3,0" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="3"
+                                 Text="{Binding SelectedItem.Text, ElementName=ExtraConfigCombo, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Margin="3" Text="AzzyAI Configuration Utility v1.55" VerticalAlignment="Center"/>
+                <Button Margin="3" Content="Apply Settings" Click="ApplyButton_OnClick" Padding="3" IsEnabled="{Binding SaveEnabled}"/>
+                <Button Margin="3" Content="Quit" Click="QuitButton_OnClick" Padding="3" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

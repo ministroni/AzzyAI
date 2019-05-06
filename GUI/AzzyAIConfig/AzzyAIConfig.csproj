@@ -71,8 +71,11 @@
     <ApplicationIcon>qNANE39 %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -81,90 +84,55 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AzzyAIAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AzzyAIAboutBox.Designer.cs">
       <DependentUpon>AzzyAIAboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="M_PvpTact.cs" />
-    <Compile Include="M_PvpTactEnumerator.cs" />
-    <Compile Include="M_PvpTactCollection.cs" />
-    <Compile Include="M_PvpTactControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="ConfigOption.cs" />
+    <Compile Include="ConfigOptionValueTemplateSelector.cs" />
+    <Compile Include="Helpers\EnumDescription.cs" />
+    <Compile Include="Converters\NullOrEmptyToCollapsedConverter.cs" />
+    <Compile Include="Converters\IntToStringConverter.cs" />
+    <Compile Include="Converters\EnumToCollectionConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ExtraConfig.cs" />
+    <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="M_PvpTactControl.Designer.cs">
-      <DependentUpon>M_PvpTactControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="M_PVP_Tact.cs" />
-    <Compile Include="ExtraControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ExtraControl.Designer.cs">
-      <DependentUpon>ExtraControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PvpTactCollection.cs" />
-    <Compile Include="PvpTactEnumerator.cs" />
-    <Compile Include="PVP_Tact.cs" />
-    <Compile Include="PvpTactControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PvpTactControl.Designer.cs">
-      <DependentUpon>PvpTactControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MerTactControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MerTactControl.Designer.cs">
-      <DependentUpon>MerTactControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="HomTactControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="HomTactControl.Designer.cs">
-      <DependentUpon>HomTactControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MerConf.cs" />
-    <Compile Include="HomConf.cs" />
-    <Compile Include="M_Tactics.cs" />
+    <Compile Include="Mercenary\M_PvpTact.cs" />
+    <Compile Include="Mercenary\M_PvpTactEnumerator.cs" />
+    <Compile Include="Mercenary\M_PvpTactCollection.cs" />
+    <Compile Include="Mercenary\M_PVP_Tact.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Homunculus\PvpTactCollection.cs" />
+    <Compile Include="Homunculus\PvpTactEnumerator.cs" />
+    <Compile Include="Homunculus\PVP_Tact.cs" />
+    <Compile Include="Mercenary\MerConf.cs" />
+    <Compile Include="Homunculus\HomConf.cs" />
+    <Compile Include="Mercenary\M_Tactics.cs" />
+    <Compile Include="RelevantHomOptions.cs" />
     <Compile Include="TactEnumerator.cs" />
     <Compile Include="TactCollection.cs" />
-    <Compile Include="H_Tactics.cs" />
-    <Compile Include="PvpTact.cs" />
+    <Compile Include="Homunculus\H_Tactics.cs" />
+    <Compile Include="Homunculus\PvpTact.cs" />
     <Compile Include="Tact.cs" />
     <Compile Include="Defaults.cs" />
-    <Compile Include="M_Config.cs" />
-    <Compile Include="H_Config.cs" />
+    <Compile Include="Mercenary\M_Config.cs" />
+    <Compile Include="Homunculus\H_Config.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AzzyAIAboutBox.resx">
       <DependentUpon>AzzyAIAboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="M_PvpTactControl.resx">
-      <DependentUpon>M_PvpTactControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExtraControl.resx">
-      <DependentUpon>ExtraControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PvpTactControl.resx">
-      <DependentUpon>PvpTactControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MerTactControl.resx">
-      <DependentUpon>MerTactControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HomTactControl.resx">
-      <DependentUpon>HomTactControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -175,6 +143,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="App.config" />
     <None Include="AzzyAIConfig_TemporaryKey.pfx" />
     <None Include="M_PVP_Tact.lua">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -215,13 +184,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controls\" />
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Documentation.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="qNANE39 %281%29.ico" />
+    <Resource Include="qNANE39 %281%29.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -244,6 +214,16 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

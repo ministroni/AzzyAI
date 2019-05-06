@@ -8,34 +8,11 @@
 
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
 
 namespace AzzyAIConfig
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
-        {
-            try
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
-            }
-            catch (Exception e)
-            {
-                // Display an error message if there were any unhandled exceptions during runtime
-                MessageBox.Show(e.ToString());
-            }
-        }
-
         public static void WriteLine(string value)
         {
             // Check if the console output stream is not null

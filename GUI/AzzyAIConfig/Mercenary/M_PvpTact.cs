@@ -16,7 +16,7 @@ namespace AzzyAIConfig
 {
     class M_PvpTact : IComparable<M_PvpTact>
     {
-        public M_PvpTact(string id, TACT_BASIC basic = TACT_BASIC.TACT_REACT_L, string skill = "SKILL_ALWAYS", TACT_KITE kite = TACT_KITE.KITE_NEVER, TACT_CAST cast = TACT_CAST.CAST_REACT, TACT_PUSHBACK push = TACT_PUSHBACK.PUSH_NEVER, TACT_DEBUFF debuff = TACT_DEBUFF.DEBUFF_NEVER, TACT_SKILLCLASS size = TACT_SKILLCLASS.CLASS_S, TACT_RESCUE rescue = TACT_RESCUE.RESCUE_NEVER)
+        public M_PvpTact(string id, TACT_BASIC basic = TACT_BASIC.TACT_REACT_L, TACT_SKILL skill = TACT_SKILL.SKILL_ALWAYS, TACT_KITE kite = TACT_KITE.KITE_NEVER, TACT_CAST cast = TACT_CAST.CAST_REACT, TACT_PUSHBACK push = TACT_PUSHBACK.PUSH_NEVER, TACT_DEBUFF debuff = TACT_DEBUFF.DEBUFF_NEVER, TACT_SKILLCLASS size = TACT_SKILLCLASS.CLASS_S, TACT_RESCUE rescue = TACT_RESCUE.RESCUE_NEVER)
         {
             // Set the tactic values
             _id = id;
@@ -92,8 +92,8 @@ namespace AzzyAIConfig
             set { _basic = value; }
         }
 
-        string _skill = "SKILL_ALWAYS";
-        public string TACT_SKILL
+        TACT_SKILL _skill = TACT_SKILL.SKILL_ALWAYS;
+        public TACT_SKILL TACT_SKILL
         {
             get { return _skill; }
             set { _skill = value; }
